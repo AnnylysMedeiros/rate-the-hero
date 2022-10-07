@@ -52,11 +52,3 @@ export function SearchField(props) {
 		</Wrapper>
 	);
 }
-export function SearchField(props) {
-	return (
-		<Wrapper>
-			<Icon />
-			<Input {...props} type="text" />
-		</Wrapper>
-	);
-}
