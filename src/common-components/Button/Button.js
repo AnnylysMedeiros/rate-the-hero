@@ -29,7 +29,7 @@ export const Button = styled.button`
     letter-spacing: ${FontLetterSpacings.MEDIUM};
 	font-size: ${FontSizes.ONE_QUARTER};
  
-	&amp;:hover {
+	&:hover {
 		background-color: ${Colors.BLUE_550};
 	}
 `;
