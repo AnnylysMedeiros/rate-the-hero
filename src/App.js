@@ -3,6 +3,7 @@ import { NormalizeStyles } from './shared/NormalizeStyles';
 import { Search } from './screens/Search';
 import { Details } from './screens/Details';
 import { NotFound } from './screens/NotFound';
+import { Header } from './common-components/Header/Header';
 
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
     <>
     <NormalizeStyles />
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path="/detalhes/:id" element={<Details />} />
         <Route path="/" element={<Search />} />
