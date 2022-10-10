@@ -1,3 +1,4 @@
+import React from 'react';
 import { Header } from '../common-components/Header/Header';
 import { Button } from '../common-components/Button/Button';
 import { ButtonLink } from '../common-components/ButtonLink/ButtonLink';
@@ -26,6 +27,31 @@ const HeroesGrid = styled(Box)`
 	}
 `;
 export function Search() {
+	const initialState = [
+		{
+			secretIdentity: 'Terry McGinnis',
+			name: 'Batman',
+			picture:
+				'https://www.superherodb.com/pictures2/portraits/10/100/10441.jpg',
+			universe: 'DC Comics',
+		},
+		{
+			secretIdentity: 'Bruce Wayne',
+			name: 'Batman',
+			picture:
+				'https://www.superherodb.com/pictures2/portraits/10/100/639.jpg',
+			universe: 'DC Comics',
+		},
+		{
+			secretIdentity: 'Dick Grayson',
+			name: 'Batman II',
+			picture:
+				'https://www.superherodb.com/pictures2/portraits/10/100/1496.jpg',
+			universe: 'DC Comics',
+		},
+	];
+	const [heroes, setHeroes] = React.useState(initialState);
+
 	return (
 		<>
 			<Flex
@@ -46,24 +72,14 @@ export function Search() {
 				px={[Spaces.ONE, Spaces.TWO]}
 				pb={[Spaces.ONE, Spaces.TWO]}
 			>
-				<HeroCard
-					secretIdentity="Terry McGinnis"
-					name="Batman"
-					picture="https://www.superherodb.com/pictures2/portraits/10/100/10441.jpg"
-					universe="DC Comics"
-				/>
-				<HeroCard
-					secretIdentity="Bruce Wayne"
-					name="Batman"
-					picture="https://www.superherodb.com/pictures2/portraits/10/100/639.jpg"
-					universe="DC Comics"
-				/>
-				<HeroCard
-					secretIdentity="Dick Grayson"
-					name="Batman II"
-					picture="https://www.superherodb.com/pictures2/portraits/10/100/1496.jpg"
-					universe="DC Comics"
-				/>
+				{heroes.map((hero) => (
+					<HeroCard
+						secretIdentity={hero.secretIdentity}
+						name={hero.name}
+						picture={hero.picture}
+						universe={hero.universe}
+					/>
+				))}
 			</HeroesGrid>
 		</>
 	);
