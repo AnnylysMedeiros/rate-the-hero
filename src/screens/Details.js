@@ -17,6 +17,7 @@ import { Card } from '../common-components/Card/Card';
 import { useHero } from '../hooks/useHero';
 import { Caption } from '../common-components/Caption/Caption';
 import { useHistory, useParams, useNavigate } from 'react-router';
+import { useFormik } from 'formik';
 
 const Container = styled.aside`
 	width: 727px;
@@ -40,8 +41,14 @@ const DetailsGrid = styled.section`
 export function Details() {
 	const navigate = useNavigate();
 	const { id } = useParams();
-	const { hero, isLoadingHero } = useHero(id);
-	
+	const { hero, isLoadingHero, setHeroAvaliation, getHeroAvaliation } = useHero(id);
+	const formik = useFormik ({
+		initialValues: getHeroAvaliation(id) || { avaliation: ''},
+		onSubmit: (values) => {
+			setHeroAvaliation({ id, ...values });
+		},
+	})
+
 	
 	// const history = useHistory();
 	// const handleBack = () => {
@@ -63,8 +70,9 @@ export function Details() {
 						height={194}
 						ml={Spaces.SEVEN}
 					>
+					<form onSubmit={formik.handleSubmit} noValidate>
 						<Flex>
-							<SelectField>
+							<SelectField onChange={formik.handleChange} name="avaliation" value={formik.values.avaliation} required>
 								<Option value="" selected disabled>
 									Selecione a nota
 								</Option>
@@ -78,6 +86,7 @@ export function Details() {
 								<Button>Atribuir</Button>
 							</Box>
 						</Flex>
+					</form>
 					</Flex>
 				</Flex>
 				<Box my={Spaces.ONE_HALF} as="section">

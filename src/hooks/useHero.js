@@ -6,6 +6,14 @@ export function useHero(heroId) {
         `/${heroId}`,
         { manual: heroId == null }
         );
+
+        function setHeroAvaliation(hero) {
+            localStorage.setItem(hero.id, JSON.stringify(hero));
+        }
+
+        function getHeroAvaliation(heroId) {
+            return JSON.parse(localStorage.getItem(heroId));
+        }
         
-    return {hero, isLoadingHero, getHero};
+    return {hero, isLoadingHero, getHero, setHeroAvaliation, getHeroAvaliation};
 }
