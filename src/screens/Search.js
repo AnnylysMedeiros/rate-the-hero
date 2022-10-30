@@ -17,6 +17,7 @@ import { HeroCard } from '../components/HeroCard/HeroCard';
 import { HeroCardLoader } from '../components/HeroCard/HeroCardLoader';
 import { Spaces } from '../shared/DesignTokens';
 import  useAxios  from 'axios-hooks';
+import { useHeroes } from '../hooks/useHeroes';
 
 const HeroesGrid = styled(Box)`
 	display: grid;
@@ -34,14 +35,7 @@ export function Search() {
 		doSearch: false,
 	});
 
-	const[{ data: heroes, loading: isLoadingHeroes }, searchHero] = useAxios(
-		`/search/${search.value}`,
-		{ manual: true }
-	);
-
-	React.useEffect(() => {
-		searchHero();
-	}, []);
+	const { heroes, searchHero,isLoadingHeroes } = useHeroes(search.value);
 
 	React.useEffect(() => {
 		if (search.doSearch) {
