@@ -19,6 +19,7 @@ const colorMapper = {
 		backgroundColor: Colors.RED_800,
 	},
 };
+
 export const Alert = styled.div`
 	display: flex;
 	align-items: center;
