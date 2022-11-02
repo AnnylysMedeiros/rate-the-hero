@@ -11,13 +11,15 @@ import {
 	Option,
 } from '../common-components/SelectField/SelectField';
 import { Button } from '../common-components/Button/Button';
+import { Alert } from '../common-components/Alert/Alert';
 import { HeadingTwo } from '../common-components/HeadingTwo/HeadingTwo';
 import { Description } from '../common-components/Description/Description';
 import { Card } from '../common-components/Card/Card';
 import { useHero } from '../hooks/useHero';
 import { Caption } from '../common-components/Caption/Caption';
-import { useHistory, useParams, useNavigate } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 const Container = styled.aside`
 	width: 727px;
@@ -44,19 +46,21 @@ export function Details() {
 	const { hero, isLoadingHero, setHeroAvaliation, getHeroAvaliation } = useHero(id);
 	const formik = useFormik ({
 		initialValues: getHeroAvaliation(id) || { avaliation: ''},
+		validationSchema: yup.object().shape({
+			avaliation: yup.string().required(),
+		}),
 		onSubmit: (values) => {
 			setHeroAvaliation({ id, ...values });
-		},
-	})
 
-	
-	// const history = useHistory();
-	// const handleBack = () => {
-	// 	history.goBack();
-	// };
+			alert("Nota atribuída com sucesso!");
+
+			navigate('/');
+		},
+	});
+
 
 	const handleBack = () => {
-		navigate.goBack();
+		navigate('/');
 	};
 
 	return (
@@ -86,6 +90,13 @@ export function Details() {
 								<Button>Atribuir</Button>
 							</Box>
 						</Flex>
+						{formik.errors.avaliation && (
+							<Box mt={Spaces.TWO}>
+								<Alert type="error">
+									Escolha uma nota para ser atribuída
+								</Alert>
+							</Box>
+						)}
 					</form>
 					</Flex>
 				</Flex>
